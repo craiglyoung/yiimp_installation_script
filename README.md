@@ -21,7 +21,7 @@ Connect on your VPS =>
 - su - pool
 - sudo apt -y install git
 - git clone https://github.com/craiglyoung/yiimp_installation_script.git
-- cd yiimp_install_script/
+- cd yiimp_installation_script/
 - bash install.sh (DO NOT RUN THE SCRIPT AS ROOT or SUDO)
 - At the end, you MUST REBOOT to finalize installation...
 
