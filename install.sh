@@ -196,7 +196,7 @@
     # Installing Package to compile crypto currency
     echo
     echo
-    echo -e "$CYAN => Installing Packages to compile crypto currency: $COL_RESET"
+    echo -e "$CYAN => Installing Packages to compile crypto currency: [Note - under development] $COL_RESET"
     echo
     sleep 3
     
