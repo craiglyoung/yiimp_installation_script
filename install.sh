@@ -1134,8 +1134,6 @@
     echo -e "$CYAN Please make sure to change your public keys / wallet addresses in the /var/web/serverconfig.php file. $COL_RESET"
     echo -e "$CYAN Please make sure to change your private keys in the /etc/yiimp/keys.php file. $COL_RESET"
     echo
-    echo -e "$CYAN Please make sure you run sudo chown ${whoami}:www-data /$HOME/yiimp-logs/debug.log to allow logging"
-    echo
     echo -e "$RED***************************************************$COL_RESET"
     echo -e "$RED YOU MUST REBOOT NOW TO FINALISE INSTALLATION !!! $COL_RESET"
     echo -e "$RED***************************************************$COL_RESET"
