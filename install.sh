@@ -1075,6 +1075,8 @@
     sudo chgrp www-data /var/yiimp -R
     sudo chmod 775 /var/yiimp -R
 
+    touch /$HOME/yiimp-logs/debug.log
+    sudo chown ${whoami}:www-data /$HOME/yiimp-logs/debug.log
 
     #Add to contrab screen-script
     (crontab -l 2>/dev/null; echo "@reboot sleep 20 && /etc/screen-script.sh") | crontab -
