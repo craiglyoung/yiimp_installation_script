@@ -11,6 +11,7 @@ Original Yiimp Installer : https://github.com/cryptopool-builders/multipool_orig
 ## Install script for yiimp on Ubuntu Server 22.04 (uses custom Yiimp)
 
 USE THIS SCRIPT ON FRESH INSTALL UBUNTU Server 22.04!
+NOTE :THIS IS STILL A WORK IN PROGRESS
 
 Connect on your VPS =>
 - apt update
