@@ -205,6 +205,7 @@
     apt_install libminiupnpc17 libzmq5
     apt_install libcanberra-gtk-module libqrencode-dev libzmq3-dev
     apt_install libqt5gui5 libqt5core5a libqt5webkit5-dev libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
+    apt_install libssh-dev libbrotli-dev
     hide_output sudo add-apt-repository -y ppa:luke-jr/bitcoincore
     hide_output sudo apt -y update
     apt_install libdb4.8-dev libdb4.8++-dev libdb5.3 libdb5.3++
