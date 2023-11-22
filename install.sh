@@ -864,7 +864,7 @@
     /* Sample config file to put in /etc/yiimp/keys.php */
     define('"'"'YIIMP_MYSQLDUMP_USER'"'"', '"'"'panel'"'"');
     define('"'"'YIIMP_MYSQLDUMP_PASS'"'"', '"'"''"${password}"''"'"');
-    define('"'"'YIIMP_MYSQLDUMP_PATH'"'"', '"'"''"/home/pool/backup"''"'"');
+    define('"'"'YIIMP_MYSQLDUMP_PATH'"'"', '"'"''"/home/${whoami}/backup"''"'"');
     /* Keys required to create/cancel orders and access your balances/deposit addresses */
     define('"'"'EXCH_BITTREX_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_BITSTAMP_SECRET'"'"','"'"''"'"');
@@ -939,7 +939,7 @@
 
     ini_set('"'"'date.timezone'"'"', '"'"'UTC'"'"');
 
-    define('"'"'YAAMP_LOGS'"'"', '"'"'/home/pool/yiimp-logs'"'"');
+    define('"'"'YAAMP_LOGS'"'"', '"'"'/home/${whoami}/yiimp-logs'"'"');
     define('"'"'YAAMP_HTDOCS'"'"', '"'"'/var/web'"'"');
         
     define('"'"'YAAMP_BIN'"'"', '"'"'/var/bin'"'"');
@@ -1092,7 +1092,7 @@
     sudo sed -i 's/service nginx stop/sudo service nginx stop/g' /var/web/yaamp/modules/thread/CronjobController.php
 
     #fix error screen main "backup sql frontend"
-    sudo sed -i "s|/root/backup|/home/pool/backup|g" /var/web/yaamp/core/backend/system.php
+    sudo sed -i "s|/root/backup|/home/${whoami}/backup|g" /var/web/yaamp/core/backend/system.php
     sudo sed -i '14d' /var/web/yaamp/defaultconfig.php
 
     #Misc
