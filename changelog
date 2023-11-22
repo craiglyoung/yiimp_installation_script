@@ -1,3 +1,7 @@
+Ubuntu 22.04 Yiimp Install Script v0.1a // 22/11/2023 (DD/MM/YYYY)
+Fix =>
+* Removed hard coded account (was pool in a few places) so that account being used is detected instead
+
 Ubuntu 22.04 Yiimp Install Script v0.1 // 11/10/2023 (DD/MM/YYYY)
 * Name change to be specific to Ubuntu 22.04, no longer "Yiimp Install Scrypt"
 * Testing with Ubuntu Server 22.04
