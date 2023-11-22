@@ -1,4 +1,4 @@
-# Yiimp_install_script v0.1 (October 2023)
+# Yiimp_install_script v0.1a (November 2023)
 
 Yiimp (used in this script for Yiimp Installation): https://github.com/craiglyoung/yiimp
 
