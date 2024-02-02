@@ -916,7 +916,7 @@
 
     ini_set('"'"'date.timezone'"'"', '"'"'UTC'"'"');
 
-    define('"'"'YAAMP_LOGS'"'"', '"'"'/home/${whoami}/yiimp-logs'"'"');
+    define('"'"'YAAMP_LOGS'"'"', '"'"''"/home/${whoami}/yiimp-logs"''"'"');
     define('"'"'YAAMP_HTDOCS'"'"', '"'"'/var/web'"'"');
         
     define('"'"'YAAMP_BIN'"'"', '"'"'/var/bin'"'"');
