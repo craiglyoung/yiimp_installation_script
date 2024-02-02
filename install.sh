@@ -153,6 +153,11 @@
     echo -e "$CYAN => Installing php8.2: $COL_RESET"
     echo
     sleep 3
+
+    if [ ! -f /etc/apt/sources.list.d/ondrej-php-jammy.list ]; then
+     hide_output sudo add-apt-repository -y ppa:ondrej/php
+    fi
+    hide_output sudo apt -y update
    
     if [[ ("$DISTRO" == "22") ]]; then
      apt_install php8.2-fpm php8.2-opcache php8.2 php8.2-common php8.2-gd php8.2-mysql php8.2-imap php8.2-cli \
