@@ -18,7 +18,7 @@ Connect on your VPS =>
 - apt update
 - apt upgrade
 - reboot
-- adduser pool (pool it's just an example...)
+- adduser pool (pool is just an example...)
 - adduser pool sudo
 - su - pool
 - sudo apt -y install git
@@ -28,37 +28,33 @@ Connect on your VPS =>
 - At the end, you MUST REBOOT to finalize installation...
 
 Finish !
-- Go http://xxx.xxx.xxx.xxx or https://xxx.xxx.xxx.xxx (if you have chosen LetsEncrypt SSL). Enjoy !
+- Go http://xxx.xxx.xxx.xxx (or https://xxx.xxx.xxx.xxx if you have chosen LetsEncrypt SSL). Enjoy !
 - Go http://xxx.xxx.xxx.xxx/site/AdminPanel or https://xxx.xxx.xxx.xxx/site/AdminPanel to access Panel Admin
-
-If you are issue after installation (nginx,mariadb... not found), use this script : bash install-debug.sh (watch the log during installation)
 
 ###### :bangbang: **Tpruvot Yiimp_install_script:**
 - Instead of https://github.com/craiglyoung/yiimp, you can use the original Tpruvot Repo Yiimp : git clone https://github.com/tpruvot/yiimp.git
 
 ###### :bangbang: **Kudaraidee Yiimp:**
-- Instead https://github.com/craiglyoung/yiimp, you can use the Kudaraidee's Repo Yiimp (that this was cloned of): git clone https://github.com/Kudaraidee/yiimp.git
+- Instead of https://github.com/craiglyoung/yiimp, you can use the Kudaraidee's Repo Yiimp (that this was cloned of): git clone https://github.com/Kudaraidee/yiimp.git
 
 ###### :bangbang: **YOU MUST UPDATE THE FOLLOWING FILES :**
-- **/var/web/serverconfig.php :** update this file to include your public ip (line = YAAMP_ADMIN_IP) to access the admin panel (Put your PERSONNAL IP, NOT IP of your VPS). update with public keys from exchanges. update with other information specific to your server..
-- **/etc/yiimp/keys.php :** update with secrect keys from the exchanges (not mandatory)
-- **If you want change 'AdminPanel' to access Panel Admin :** Edit this file "/var/web/yaamp/modules/site/SiteController.php" and Line 11 => change 'AdminPanel'
+- **/var/web/serverconfig.php :** update this file to include your public ip (line = YAAMP_ADMIN_IP) to access the admin panel (Put your PERSONAL IP, NOT the IP of your VPS). Update with public keys from exchanges. Update with other information specific to your server.
+- **/etc/yiimp/keys.php :** update with youer secrect keys from the exchanges (not mandatory)
+- **If you want to change from 'AdminPanel' to access Panel Admin :** Edit this file "/var/web/yaamp/modules/site/SiteController.php" and Line 11 => change 'AdminPanel'
 
 
 ###### :bangbang: **IMPORTANT** : 
-
-- The configuration of yiimp and coin require a minimum of knowledge in linux
+- The configuration of yiimp and coins require a minimum of good knowledge of linux
 - Your mysql information (login/Password) is saved in **~/.my.cnf**
 
 ***********************************
 
 ###### This script has an interactive beginning and will ask for the following information :
-
-- Server Name (no http:// or www !!!!! Example : crypto.com OR pool.crypto.com OR 80.41.52.63)
-- Are you using a subdomain (mypoolx11.crypto.com)
-- Enter support email
-- Set stratum to AutoExchange
-- Your Public IP for admin access (Put your PERSONNAL IP, NOT IP of your VPS)
+- Server Name (no http:// or www !!!!! Example : mydomain.com OR pool.mydomain.com OR xxx.xxx.xxx.xxx)
+- Are you using a subdomain (pool.mydomain.com)
+- Enter your support email
+- Set stratum to AutoExchange, if wanted
+- Your public IP for admin access (Pthis is your PERSONAL IP, NOT the IP of your VPS/Server)
 - Install Fail2ban
 - Install UFW and configure ports
 - Install LetsEncrypt SSL
@@ -67,6 +63,6 @@ If you are issue after installation (nginx,mariadb... not found), use this scrip
 
 **This install script will get you 95% ready to go with yiimp. There are a few things you need to do after the main install is finished.**
 
-While I did add some server security to the script, it is every server owners responsibility to fully secure their own servers. After the installation you will still need to customize your serverconfig.php file to your liking, add your API keys, and build/add your coins to the control panel. 
+While there is some server security to the script, it is every server owner's responsibility to fully secure their own server(s). After the installation, you will still need to customize your serverconfig.php file to your liking, add your API keys, and build/add your coins to the control panel. 
 
-There will be several wallets already in yiimp. These have nothing to do with the installation script and are from the database import from the yiimp github. 
+There will be several wallets already in yiimp. These have nothing to do with the installation script and are from the database import from the yiimp github. You can delete these from the database if you wish.
