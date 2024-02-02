@@ -5,7 +5,7 @@
 # Latest modifications by: craiglyoung (https://github.com/craiglyoung/yiimp_installation_script)
 #
 # Program:
-#   Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and php8.3
+#   Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 8.3
 #   v0.2 (update February, 2024)
 # 
 ################################################################################
@@ -46,7 +46,7 @@
     echo
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script $script_version $COL_RESET"
-    echo -e "$GREEN Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and php8.3 $COL_RESET"
+    echo -e "$GREEN Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 8.3 $COL_RESET"
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo
     sleep 3
@@ -56,10 +56,13 @@
     echo
     sleep 3
      
+    hide_output apt purge apache2 apache2-utils apache2.2-bin apache2-common
+
     hide_output sudo apt -y update 
     hide_output sudo apt -y upgrade
     hide_output sudo apt -y autoremove
-    apt_install dialog python3 python3-pip acl nano apt-transport-https curl
+   
+    apt_install dialog python3 python3-pip acl nano apt-transport-https curl net-tools
     echo -e "$GREEN Done...$COL_RESET"
 
     source config/prerequisite.sh
@@ -75,15 +78,15 @@
     echo
     echo -e "$RED Make sure you double check before hitting enter! Only one shot at these! $COL_RESET"
     echo
-    #read -e -p "Enter time zone (e.g. America/New_York) : " TIME
-    read -e -p "Domain Name (no http:// or www. just : example.com or pool.example.com or 185.22.24.26) : " server_name
-    read -e -p "Are you using a subdomain (mypool.example.com?) [y/N] : " sub_domain
-    read -e -p "Enter support email (e.g. admin@example.com) : " EMAIL
-    read -e -p "Set Pool to AutoExchange? i.e. mine any coin with BTC address? [y/N] : " BTC
-    #read -e -p "Please enter a new location for /site/adminRights. This is to customise the Admin Panel entrance url (e.g. myAdminpanel) : " admin_panel
-    read -e -p "Enter your own public IP (the public IP you will use to access the admin panel FROM, not the IP of your server) (http://www.whatsmyip.org/) : " Public
-    read -e -p "Install Fail2ban? [Y/n] : " install_fail2ban
-    read -e -p "Install UFW and configure ports? [Y/n] : " UFW
+    read -e -p "Enter time zone (e.g. Australia/Brisbane): " TIME
+    read -e -p "Domain Name (no http:// or www. just : example.com or pool.example.com or 185.22.24.26): " server_name
+    read -e -p "Are you using a subdomain (mypool.example.com?) [y/N]: " sub_domain
+    read -e -p "Enter support email (e.g. admin@example.com): " EMAIL
+    read -e -p "Set Pool to AutoExchange? i.e. mine any coin with BTC address? [y/N]: " BTC
+    #read -e -p "Please enter a new location for /site/adminRights. This is to customise the Admin Panel entrance url (e.g. myAdminpanel): " admin_panel
+    read -e -p "Enter your own public IP (the public IP you will use to access the admin panel FROM, not the IP of your server) (http://www.whatsmyip.org/): " Public
+    read -e -p "Install Fail2ban? [Y/n]: " install_fail2ban
+    read -e -p "Install UFW and configure ports? [Y/n]: " UFW
     read -e -p "Install LetsEncrypt SSL? IMPORTANT! You MUST have your domain name pointed to this server prior to running the script!! [Y/n]: " ssl_install
     
     # Switch Aptitude
@@ -183,12 +186,12 @@
     sleep 3
     
     apt_install libgmp3-dev libmysqlclient-dev libcurl4-gnutls-dev libkrb5-dev libldap2-dev libidn11-dev gnutls-dev \
-    librtmp-dev sendmail mutt screen git
+    librtmp-dev sendmail mutt screen
     apt_install pwgen -y
     echo -e "$GREEN Done...$COL_RESET"
 	sleep 3
 
-    # Installing Packages to compile crypto currency
+    # Installing packages to compile crypto currency
     echo
     echo
     echo -e "$CYAN => Installing Packages to compile crypto currency:  $COL_RESET"
@@ -285,7 +288,7 @@
     echo
     echo -e "$CYAN => Installing Yiimp: $COL_RESET"
     echo
-    echo -e "Grabbing yiimp fron Github, building files and setting file structure."
+    echo -e "Grabbing Yiimp fron Github, building files and setting file structure."
     echo
     sleep 3
     
@@ -359,10 +362,10 @@
     echo -e "$CYAN => Update default timezone: $COL_RESET"
     echo
     
-    echo -e " Setting TimeZone to UTC...$COL_RESET"
+    echo -e " Setting TimeZone to $TIME...$COL_RESET"
     if [ ! -f /etc/timezone ]; then
-    echo "Setting timezone to UTC."
-    echo "Etc/UTC" > sudo /etc/timezone
+    echo "Setting timezone to $TIME."
+    echo $TIME > sudo /etc/timezone
     sudo systemctl restart rsyslog
     fi
     sudo systemctl status rsyslog | sed -n "1,3p"
@@ -876,7 +879,7 @@
     cd yiimp/sql
     
     # Import sql dump
-    sudo zcat 2020-11-10-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf 
+    sudo zcat 2024-02-02-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf 
 
     # Oh the humanity!
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2016-04-24-market_history.sql
@@ -1075,7 +1078,7 @@
     sudo rm -rf /var/log/nginx/*
     
     #Hold update OpenSSL
-    #If you want remove the hold : sudo apt-mark unhold openssl
+    #If you want remove the hold: sudo apt-mark unhold openssl
     sudo apt-mark hold openssl
 
     #Restart service
