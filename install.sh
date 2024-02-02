@@ -2,14 +2,15 @@
 ################################################################################
 # Original Author:   crombiecrunch
 # Modified by: Xavatar (https://github.com/xavatar/yiimp_install_scrypt)
-# Latest modifications by: Craig (https://github.com/craiglyoung/yiimp_installation_script)
+# Latest modifications by: craiglyoung (https://github.com/craiglyoung/yiimp_installation_script)
 #
 # Program:
 #   Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and php8.2
-#   v0.1 (update October, 2023)
+#   v0.1a (update February, 2024)
 # 
 ################################################################################
-	
+
+    script_version='v0.1a'
 
     output() {
     printf "\E[0;33;40m"
@@ -44,7 +45,7 @@
     clear
     echo
     echo -e "$GREEN************************************************************************$COL_RESET"
-    echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script v0.1 $COL_RESET"
+    echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script $script_version $COL_RESET"
     echo -e "$GREEN Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and php8.2 $COL_RESET"
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo
@@ -76,15 +77,14 @@
     echo
     #read -e -p "Enter time zone (e.g. America/New_York) : " TIME
     read -e -p "Domain Name (no http:// or www. just : example.com or pool.example.com or 185.22.24.26) : " server_name
-    read -e -p "Are you using a subdomain (mycryptopool.example.com?) [y/N] : " sub_domain
+    read -e -p "Are you using a subdomain (mypool.example.com?) [y/N] : " sub_domain
     read -e -p "Enter support email (e.g. admin@example.com) : " EMAIL
     read -e -p "Set Pool to AutoExchange? i.e. mine any coin with BTC address? [y/N] : " BTC
-    #read -e -p "Please enter a new location for /site/adminRights this is to customize the Admin Panel entrance url (e.g. myAdminpanel) : " admin_panel
-    read -e -p "Enter the Public IP of the system you will use to access the admin panel (http://www.whatsmyip.org/) : " Public
+    #read -e -p "Please enter a new location for /site/adminRights. This is to customise the Admin Panel entrance url (e.g. myAdminpanel) : " admin_panel
+    read -e -p "Enter your own public IP (the public IP you will use to access the admin panel FROM, not the IP of your server) (http://www.whatsmyip.org/) : " Public
     read -e -p "Install Fail2ban? [Y/n] : " install_fail2ban
     read -e -p "Install UFW and configure ports? [Y/n] : " UFW
     read -e -p "Install LetsEncrypt SSL? IMPORTANT! You MUST have your domain name pointed to this server prior to running the script!! [Y/n]: " ssl_install
-    
     
     # Switch Aptitude
     #echo
@@ -93,7 +93,6 @@
     #sleep 3
     #apt_install aptitude
     #echo -e "$GREEN Done...$COL_RESET $COL_RESET"
-
 
     # Installing Nginx
     echo
@@ -119,7 +118,6 @@
     echo
     echo -e "$GREEN Done...$COL_RESET"
 	
-
     # Making Nginx a bit hard
     echo 'map $http_user_agent $blockedagent {
     default         0;
@@ -130,7 +128,6 @@
     ~*bandit        1;
     }
     ' | sudo -E tee /etc/nginx/blockuseragents.rules >/dev/null 2>&1
-    
     
     # Installing Mariadb
     echo
@@ -149,20 +146,14 @@
     sudo systemctl status mysql | sed -n "1,3p"
     echo
     echo -e "$GREEN Done...$COL_RESET"
-
-    
+  
     # Installing Installing php8.2
     echo
     echo
     echo -e "$CYAN => Installing php8.2: $COL_RESET"
     echo
     sleep 3
-    
-    if [ ! -f /etc/apt/sources.list.d/ondrej-php-bionic.list ]; then
-    hide_output sudo add-apt-repository -y ppa:ondrej/php
-    fi
-    hide_output sudo apt -y update
-
+   
     if [[ ("$DISTRO" == "22") ]]; then
      apt_install php8.2-fpm php8.2-opcache php8.2 php8.2-common php8.2-gd php8.2-mysql php8.2-imap php8.2-cli \
     php8.2-cgi php-pear imagemagick libruby php8.2-curl php8.2-intl php8.2-pspell mcrypt\
@@ -178,11 +169,10 @@
     echo
     echo -e "$GREEN Done...$COL_RESET"
 
-    
     # Installing other needed files
     echo
     echo
-    echo -e "$CYAN => Installing other needed files: $COL_RESET"
+    echo -e "$CYAN => Installing other required files: $COL_RESET"
     echo
     sleep 3
     
@@ -192,18 +182,17 @@
     echo -e "$GREEN Done...$COL_RESET"
 	sleep 3
 
-    
-    # Installing Package to compile crypto currency
+    # Installing Packages to compile crypto currency
     echo
     echo
-    echo -e "$CYAN => Installing Packages to compile crypto currency: [Note - under development] $COL_RESET"
+    echo -e "$CYAN => Installing Packages to compile crypto currency:  $COL_RESET"
     echo
     sleep 3
     
     apt_install software-properties-common build-essential
     apt_install libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev zlib1g-dev libz-dev libseccomp-dev libcap-dev libminiupnpc-dev gettext
     apt_install libminiupnpc17 libzmq5
-    apt_install libcanberra-gtk-module libqrencode-dev libzmq3-dev
+    apt_install libcanberra-gtk-module libqrencode-dev libzmq3-dev libminizip-dev
     apt_install libqt5gui5 libqt5core5a libqt5webkit5-dev libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
     apt_install libssh-dev libbrotli-dev
     hide_output sudo add-apt-repository -y ppa:luke-jr/bitcoincore
@@ -211,12 +200,10 @@
     apt_install libdb4.8-dev libdb4.8++-dev libdb5.3 libdb5.3++
     echo -e "$GREEN Done...$COL_RESET"
        
-    
     # Generating Random Passwords
     password=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
     password2=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
     AUTOGENERATED_PASS=`pwgen -c -1 20`
-    
     
     # Test Email
     echo
@@ -231,7 +218,7 @@
 
     if [[ ("$send_email" == "y" || "$send_email" == "Y" || "$send_email" == "") ]]; then
         echo "This is a mail test for the SMTP Service." > sudo tee --append /tmp/email.message
-        echo "You should receive this !" >> sudo tee --append /tmp/email.message
+        echo "You should receive this!" >> sudo tee --append /tmp/email.message
         echo "" >> sudo tee --append /tmp/email.message
         echo "Cheers" >> sudo tee --append /tmp/email.message
         sudo sendmail -s "SMTP Testing" $root_email < sudo tee --append /tmp/email.message
@@ -249,13 +236,11 @@
     echo
     sleep 3
     
-    
     if [[ ("$install_fail2ban" == "y" || "$install_fail2ban" == "Y" || "$install_fail2ban" == "") ]]; then
     apt_install fail2ban
     sleep 5
     sudo systemctl status fail2ban | sed -n "1,3p"
         fi
-
 
     if [[ ("$UFW" == "y" || "$UFW" == "Y" || "$UFW" == "") ]]; then
     apt_install ufw
@@ -270,11 +255,9 @@
     sudo systemctl status ufw | sed -n "1,3p"   
     fi
 
-    
     echo
     echo -e "$GREEN Done...$COL_RESET"
 
-    
     # Installing PhpMyAdmin
     echo
     echo
@@ -291,7 +274,6 @@
     apt_install phpmyadmin
     echo -e "$GREEN Done...$COL_RESET"
 	
-	
     # Installing Yiimp
     echo
     echo
@@ -301,11 +283,10 @@
     echo
     sleep 3
     
-
     # Generating Random Password for stratum
     blckntifypass=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
     
-    # Compil Blocknotify
+    # Compile Blocknotify
     cd ~
     hide_output git clone https://github.com/craiglyoung/yiimp
     #hide_output git clone https://github.com/Kudaraidee/yiimp
@@ -346,7 +327,8 @@
     sudo chmod 775 /$HOME/yiimp-logs/
     sudo chown ${whoami}:www-data /$HOME/backup/
     sudo chmod 775 /$HOME/backup/
-        #fixing yiimp
+
+    #fixing yiimp
     sudo sed -i "s|ROOTDIR=/data/yiimp|ROOTDIR=/var|g" /bin/yiimp
     #fixing run.sh
     sudo rm -r /var/stratum/config/run.sh
@@ -365,7 +347,6 @@
 
     echo -e "$GREEN Done...$COL_RESET"
 
-
     # Update Timezone
     echo
     echo
@@ -381,7 +362,6 @@
     sudo systemctl status rsyslog | sed -n "1,3p"
     echo
     echo -e "$GREEN Done...$COL_RESET"
-    
     
     # Creating webserver initial config file
     echo
@@ -479,10 +459,9 @@
     	
     if [[ ("$ssl_install" == "y" || "$ssl_install" == "Y" || "$ssl_install" == "") ]]; then
 
-    
-    # Install SSL (with SubDomain)
+    # Install SSL (with Subdomain)
     echo
-    echo -e "Install LetsEncrypt and setting SSL (with SubDomain)"
+    echo -e "Install LetsEncrypt and setting SSL (with Subdomain)"
     echo
     
     apt_install letsencrypt
@@ -552,7 +531,6 @@
         rewrite ^/(.*)$ /index.php?r=$1;
         }
     
-        
             location ~ ^/index\.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
                 fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
@@ -600,7 +578,6 @@
 	hide_output sudo systemctl reload php8.2-fpm.service
 	hide_output sudo systemctl restart nginx.service
 	echo -e "$GREEN Done...$COL_RESET"
-	
 	
 	else
 	echo 'include /etc/nginx/blockuseragents.rules;
@@ -686,13 +663,12 @@
     hide_output sudo systemctl reload php8.2-fpm.service
     hide_output sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
-   
-	
+   	
     if [[ ("$ssl_install" == "y" || "$ssl_install" == "Y" || "$ssl_install" == "") ]]; then
     
-    # Install SSL (without SubDomain)
+    # Install SSL (without Subdomain)
     echo
-    echo -e "Install LetsEncrypt and setting SSL (without SubDomain)"
+    echo -e "Install LetsEncrypt and setting SSL (without Subdomain)"
     echo
     sleep 3
     
@@ -814,7 +790,6 @@
     hide_output sudo systemctl restart nginx.service
     fi
     
-    
     # Config Database
     echo
     echo
@@ -857,7 +832,6 @@
     ' | sudo -E tee ~/.my.cnf >/dev/null 2>&1
       sudo chmod 0600 ~/.my.cnf
 
-
     # Create keys file
     echo '  
     <?php
@@ -872,7 +846,6 @@
     define('"'"'EXCH_BTER_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_CCEX_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_COINMARKETS_PASS'"'"', '"'"''"'"');
-    define('"'"'EXCH_CRYPTOPIA_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_EMPOEX_SECKEY'"'"', '"'"''"'"');
     define('"'"'EXCH_HITBTC_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_KRAKEN_SECRET'"'"','"'"''"'"');
@@ -884,7 +857,6 @@
 
  	echo -e "$GREEN Done...$COL_RESET"
 
- 
     # Peforming the SQL import
     echo
     echo
@@ -925,7 +897,6 @@
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2022-10-29-blocks_effort.sql
     echo -e "$GREEN Done...$COL_RESET"
         
-    
     # Generating a basic Yiimp serverconfig.php
     echo
     echo
@@ -1034,7 +1005,6 @@
 
     echo -e "$GREEN Done...$COL_RESET"
 
-
     # Updating stratum config files with database connection info
     echo
     echo
@@ -1051,7 +1021,6 @@
     sudo sed -i 's/password = patofpaq/password = '$password2'/g' *.conf
     cd ~
     echo -e "$GREEN Done...$COL_RESET"
-
 
     # Final Directory permissions
     echo
@@ -1112,7 +1081,6 @@
     sudo systemctl restart php8.2-fpm.service
     sudo systemctl status php8.2-fpm | sed -n "1,3p"
 
-
     echo
     echo -e "$GREEN Done...$COL_RESET"
     sleep 3
@@ -1121,20 +1089,20 @@
     echo
     echo
     echo -e "$GREEN****************************************$COL_RESET"
-    echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script v0.1 $COL_RESET"
+    echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script $script_version $COL_RESET"
     echo -e "$GREEN Finished !!! $COL_RESET"
     echo -e "$GREEN****************************************$COL_RESET"
     echo 
     echo
     echo
-    echo -e "$CYAN Whew that was fun, just some reminders. $COL_RESET" 
+    echo -e "$CYAN Whew that was fun, just some reminders: $COL_RESET" 
     echo -e "$RED Your mysql information is saved in ~/.my.cnf. $COL_RESET"
     echo
-    echo -e "$RED Yiimp at : http://"$server_name" (https... if SSL enabled)"
-    echo -e "$RED Yiimp Admin at : http://"$server_name"/site/AdminPanel (https... if SSL enabled)"
-    echo -e "$RED Yiimp phpMyAdmin at : http://"$server_name"/phpmyadmin (https... if SSL enabled)"
+    echo -e "$RED Yiimp at: http://"$server_name" (https... if SSL enabled)"
+    echo -e "$RED Yiimp Admin at: http://"$server_name"/site/AdminPanel (https... if SSL enabled)"
+    echo -e "$RED Yiimp phpMyAdmin at: http://"$server_name"/phpmyadmin (https... if SSL enabled)"
     echo
-    echo -e "$RED If you want change 'AdminPanel' to access Panel Admin : Edit this file : /var/web/yaamp/modules/site/SiteController.php"
+    echo -e "$RED If you want change 'AdminPanel' to access Panel Admin, edit this file: /var/web/yaamp/modules/site/SiteController.php"
     echo -e "$RED Line 11 => change 'AdminPanel' and use the new address"
     echo
     echo -e "$CYAN Please make sure to change your public keys / wallet addresses in the /var/web/serverconfig.php file. $COL_RESET"
