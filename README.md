@@ -1,4 +1,4 @@
-# Yiimp_install_script v0.2-7.4 (February 2024)
+# Yiimp_install_script v0.2 (February 2024)
 
 Yiimp (used in this script for Yiimp Installation): https://github.com/craiglyoung/yiimp
 
@@ -8,7 +8,7 @@ Original Yiimp Installer : https://github.com/cryptopool-builders/multipool_orig
 
 ***********************************
 
-## Install script for yiimp on Ubuntu Server 22.04 and PHP 7.4 (uses custom Yiimp)
+## Install script for yiimp on Ubuntu Server 22.04 (uses custom Yiimp)
 
 - USE THIS SCRIPT ON FRESH INSTALL UBUNTU Server 22.04!
 - NOTE : YOU MUST COMPILE YOUR COINS ON AN UBUNTU 22.04 SERVER IF YOU PLAN TO RUN COIN DAEMONS ON YOUR YIIMP SERVER.
