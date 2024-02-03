@@ -5,12 +5,12 @@
 # Latest modifications by: craiglyoung (https://github.com/craiglyoung/yiimp_installation_script)
 #
 # Program:
-#   Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 7.4
-#   v0.2-7.4 (update February, 2024)
+#   Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 8.3
+#   v0.2 (update February, 2024)
 # 
 ################################################################################
 
-    script_version='v0.2-7.4'
+    script_version='v0.2'
 
     output() {
     printf "\E[0;33;40m"
@@ -46,7 +46,7 @@
     echo
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo -e "$GREEN Ubuntu 22.04 Yiimp Install Script $script_version $COL_RESET"
-    echo -e "$GREEN Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 7.4 $COL_RESET"
+    echo -e "$GREEN Install yiimp on Ubuntu 22.04 running Nginx, MariaDB, and PHP 8.3 $COL_RESET"
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo
     sleep 3
@@ -150,10 +150,10 @@
     echo
     echo -e "$GREEN Done...$COL_RESET"
   
-    # Installing Installing php 7.4
+    # Installing Installing php8.3
     echo
     echo
-    echo -e "$CYAN => Installing php 7.4: $COL_RESET"
+    echo -e "$CYAN => Installing php8.3: $COL_RESET"
     echo
     sleep 3
 
@@ -163,18 +163,18 @@
     hide_output sudo apt -y update
    
     if [[ ("$DISTRO" == "22") ]]; then
-     apt_install php7.4-fpm php7.4-opcache php7.4 php7.4-common php7.4-gd php7.4-mysql php7.4-imap php7.4-cli \
-    php7.4-cgi php-pear imagemagick libruby php7.4-curl php7.4-intl php7.4-pspell mcrypt\
-    recode php7.4-sqlite3 php7.4-tidy php7.4-xmlrpc php7.4-xsl memcached php-memcache php-memcached php-imagick php-php-gettext php7.4-zip php7.4-mbstring \
-    libpsl-dev libnghttp2-dev php7.4-memcache php7.4-memcached
+     apt_install php8.3-fpm php8.3-opcache php8.3 php8.3-common php8.3-gd php8.3-mysql php8.3-imap php8.3-cli \
+    php8.3-cgi php-pear imagemagick libruby php8.3-curl php8.3-intl php8.3-pspell mcrypt\
+    recode php8.3-sqlite3 php8.3-tidy php8.3-xmlrpc php8.3-xsl memcached php-memcache php-memcached php-imagick php-php-gettext php8.3-zip php8.3-mbstring \
+    libpsl-dev libnghttp2-dev
     else  
      echo -e "$RED Aborting, wrong O/S. Must be Ubuntu 22.04."
      exit 1
     fi
     sleep 5
-    hide_output sudo update-alternatives --set php /usr/bin/php7.4
-    hide_output sudo systemctl start php7.4-fpm
-    sudo systemctl status php7.4-fpm | sed -n "1,3p"
+    hide_output sudo update-alternatives --set php /usr/bin/php8.3
+    hide_output sudo systemctl start php8.3-fpm
+    sudo systemctl status php8.3-fpm | sed -n "1,3p"
     echo
     echo -e "$GREEN Done...$COL_RESET"
 
@@ -419,7 +419,7 @@
     
         location ~ ^/index\.php$ {
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -451,7 +451,7 @@
     		deny all;
   	  }
   		location ~ /phpmyadmin/(.+\.php)$ {
-    		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     		include fastcgi_params;
     		include snippets/fastcgi-php.conf;
@@ -462,7 +462,7 @@
 
     sudo ln -s /etc/nginx/sites-available/$server_name.conf /etc/nginx/sites-enabled/$server_name.conf
     sudo ln -s /var/web /var/www/$server_name/html
-    hide_output sudo systemctl reload php7.4-fpm.service
+    hide_output sudo systemctl reload php8.3-fpm.service
     hide_output sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
     	
@@ -542,7 +542,7 @@
     
             location ~ ^/index\.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+                fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
                 fastcgi_index index.php;
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -573,7 +573,7 @@
     		deny all;
   	}
   		location ~ /phpmyadmin/(.+\.php)$ {
-    		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     		include fastcgi_params;
     		include snippets/fastcgi-php.conf;
@@ -584,7 +584,7 @@
     ' | sudo -E tee /etc/nginx/sites-available/$server_name.conf >/dev/null 2>&1
 	fi
 	
-	hide_output sudo systemctl reload php7.4-fpm.service
+	hide_output sudo systemctl reload php8.3-fpm.service
 	hide_output sudo systemctl restart nginx.service
 	echo -e "$GREEN Done...$COL_RESET"
 	
@@ -626,7 +626,7 @@
     
         location ~ ^/index\.php$ {
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -658,7 +658,7 @@
     		deny all;
   	}
   		location ~ /phpmyadmin/(.+\.php)$ {
-    		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     		include fastcgi_params;
     		include snippets/fastcgi-php.conf;
@@ -669,7 +669,7 @@
 
     sudo ln -s /etc/nginx/sites-available/$server_name.conf /etc/nginx/sites-enabled/$server_name.conf
     sudo ln -s /var/web /var/www/$server_name/html
-    hide_output sudo systemctl reload php7.4-fpm.service
+    hide_output sudo systemctl reload php8.3-fpm.service
     hide_output sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
    	
@@ -751,7 +751,7 @@
         
             location ~ ^/index\.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+                fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
                 fastcgi_index index.php;
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -782,7 +782,7 @@
     		deny all;
   	}
   		location ~ /phpmyadmin/(.+\.php)$ {
-    		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     		include fastcgi_params;
     		include snippets/fastcgi-php.conf;
@@ -795,7 +795,7 @@
 	echo -e "$GREEN Done...$COL_RESET"
 
     fi
-    hide_output sudo systemctl reload php7.4-fpm.service
+    hide_output sudo systemctl reload php8.3-fpm.service
     hide_output sudo systemctl restart nginx.service
     fi
     
@@ -1087,8 +1087,8 @@
     sudo systemctl status mysql | sed -n "1,3p"
     sudo systemctl restart nginx.service
     sudo systemctl status nginx | sed -n "1,3p"
-    sudo systemctl restart php7.4-fpm.service
-    sudo systemctl status php7.4-fpm | sed -n "1,3p"
+    sudo systemctl restart php8.3-fpm.service
+    sudo systemctl status php8.3-fpm | sed -n "1,3p"
 
     echo
     echo -e "$GREEN Done...$COL_RESET"

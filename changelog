@@ -1,8 +1,5 @@
-Ubuntu 22.o4 Yiimp Install Script v0.2-7.4 // 04/02/2024 (DD/MM/YYYY)
-* Downgraded to PHP 7.4 while 8.3 stream being worked on.
-
 Ubuntu 22.04 Yiimp Install Script v0.2 // 02/02/2024 (DD/MM/YYYY)
-* Updated to PHP 8.3 (WIP, not working)
+* Updated to PHP 8.3
 
 Ubuntu 22.04 Yiimp Install Script v0.1a // 22/11/2023 (DD/MM/YYYY)
 Fix =>
