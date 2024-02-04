@@ -1,5 +1,5 @@
 # Yiimp_install_script v0.2-7.4 (February 2024)
-
+# THIS IS NOT YET A FUNCTIONING BUILD, DON'T WASTE YOUR TIME ON IT
 Yiimp (used in this script for Yiimp Installation): https://github.com/craiglyoung/yiimp
 
 Original Yiimp: https://github.com/tpruvot/yiimp
