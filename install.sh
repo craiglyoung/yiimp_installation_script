@@ -876,7 +876,7 @@
     sleep 3
     
     cd ~
-    cd yiimp/sql
+    cd yiimp-7.4/sql
     
     # Import sql dump
     sudo zcat 2019-11-10-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf 
