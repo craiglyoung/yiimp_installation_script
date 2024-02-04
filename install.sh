@@ -917,7 +917,7 @@
     echo '
     <?php
 
-    ini_set('"'"'date.timezone'"'"', '"'"'UTC'"'"');
+    ini_set('"'"'date.timezone'"'"', '"'"''"${TIME}"''"'"');
 
     define('"'"'YAAMP_LOGS'"'"', '"'"''"/home/${whoami}/yiimp-logs"''"'"');
     define('"'"'YAAMP_HTDOCS'"'"', '"'"'/var/web'"'"');
