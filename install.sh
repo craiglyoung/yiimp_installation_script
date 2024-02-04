@@ -876,10 +876,10 @@
     sleep 3
     
     cd ~
-    cd yiimp-7.4/sql
+    cd yiimp/sql
     
     # Import sql dump
-    sudo zcat 2019-11-10-yiimp.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf 
+    sudo zcat 2024-02-02-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf 
 
     # Oh the humanity!
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2016-04-24-market_history.sql
@@ -904,6 +904,7 @@
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2020-06-03-blocks.sql
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2022-10-14-shares_solo.sql
     sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf --force < 2022-10-29-blocks_effort.sql
+    echo -e "$GREEN Done...$COL_RESET"
     echo -e "$GREEN Done...$COL_RESET"
         
     # Generating a basic Yiimp serverconfig.php
