@@ -297,7 +297,7 @@
     
     # Compile Blocknotify
     cd ~
-    hide_output git clone https://github.com/craiglyoung/yiimp-7.4
+    hide_output git clone https://github.com/craiglyoung/yiimp
     #hide_output git clone https://github.com/Kudaraidee/yiimp
     #hide_output git clone https://github.com/tpruvot/yiimp
     cd $HOME/yiimp/blocknotify
