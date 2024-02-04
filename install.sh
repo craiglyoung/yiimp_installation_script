@@ -165,7 +165,7 @@
     if [[ ("$DISTRO" == "22") ]]; then
      apt_install php7.4-fpm php7.4-opcache php7.4 php7.4-common php7.4-gd php7.4-mysql php7.4-imap php7.4-cli \
     php7.4-cgi php-pear imagemagick libruby php7.4-curl php7.4-intl php7.4-pspell mcrypt\
-    recode php7.4-sqlite3 php7.4-tidy php7.4-xmlrpc php7.4-xsl memcached php-memcache php-memcached php-imagick php-php-gettext php7.4-zip php7.4-mbstring \
+    recode php7.4-sqlite3 php7.4-tidy php7.4-xmlrpc php7.4-xsl memcached php-imagick php-php-gettext php7.4-zip php7.4-mbstring \
     libpsl-dev libnghttp2-dev php7.4-memcache php7.4-memcached
     else  
      echo -e "$RED Aborting, wrong O/S. Must be Ubuntu 22.04."
